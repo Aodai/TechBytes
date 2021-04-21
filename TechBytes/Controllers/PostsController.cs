@@ -13,19 +13,23 @@ namespace TechBytes.Controllers
 {
     public class PostsController : Controller
     {
+        private readonly TechBytesDBContext context;
         private readonly PostsService postsService;
         private readonly BlogsService blogsService;
 
-        public PostsController(PostsService postsService, BlogsService blogsService)
+        public PostsController(PostsService postsService, BlogsService blogsService, TechBytesDBContext context)
         {
             this.postsService = postsService;
             this.blogsService = blogsService;
+            this.context = context;
         }
 
         // GET: Posts
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(postsService.GetAll());
+            var posts = context.Posts
+                .Include(p => p.Blog);
+            return View(await posts.ToListAsync());
         }
 
         // GET: Posts/Details/5
@@ -37,6 +41,7 @@ namespace TechBytes.Controllers
             }
             
             var post = postsService.GetPostById(id.ToString());
+            post.Blog = blogsService.GetBlogById(post.BlogID.ToString());
 
             //var post = await _context.Posts
             //    .Include(p => p.Blog)
