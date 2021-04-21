@@ -23,5 +23,26 @@ namespace TechBytes.ApplicationLogic.Services
             var post = postRepository.GetPostById(guid) ?? throw new EntityNotFoundException(guid);
             return post;
         }
+
+        public IEnumerable<Post> GetAll()
+        {
+            var posts = postRepository.GetAll() ?? throw new EntityNotFoundException("No entities found");
+            return posts;
+        }
+
+        public Post Add(Post post)
+        {
+            return postRepository.Add(post);
+        }
+
+        public Post Update(Post post)
+        {
+            return postRepository.Update(post);
+        }
+
+        public bool Delete(Post post)
+        {
+            return postRepository.Delete(post);
+        }
     }
 }
