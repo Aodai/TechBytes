@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,18 @@ namespace TechBytes.DataAccess
         {
         }
 
+        public override IEnumerable<Post> GetAll()
+        {
+            var posts = dbContext.Posts
+                .Include(p => p.Blog);
+            return posts;
+        }
+
         public Post GetPostById(Guid id)
         {
             return dbContext.Posts
                 .Where(post => post.ID == id)
+                .Include(p => p.Blog)
                 .SingleOrDefault();
         }
     }

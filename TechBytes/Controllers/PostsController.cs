@@ -25,11 +25,9 @@ namespace TechBytes.Controllers
         }
 
         // GET: Posts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var posts = context.Posts
-                .Include(p => p.Blog);
-            return View(await posts.ToListAsync());
+            return View(postsService.GetAll());
         }
 
         // GET: Posts/Details/5
@@ -41,7 +39,6 @@ namespace TechBytes.Controllers
             }
             
             var post = postsService.GetPostById(id.ToString());
-            post.Blog = blogsService.GetBlogById(post.BlogID.ToString());
 
             //var post = await _context.Posts
             //    .Include(p => p.Blog)

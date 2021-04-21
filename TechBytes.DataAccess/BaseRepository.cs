@@ -28,7 +28,7 @@ namespace TechBytes.DataAccess
             return true;
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return dbContext.Set<T>().AsEnumerable();
         }
