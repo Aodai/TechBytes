@@ -96,7 +96,17 @@ namespace TechBytes.Controllers
 
             if (ModelState.IsValid)
             {
-                usersService.Update(user);
+                try
+                {
+                    usersService.Update(user);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (UserExists(user.ID.ToString()))
+                        return NotFound();
+                    else
+                        throw;
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
