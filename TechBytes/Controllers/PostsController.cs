@@ -13,15 +13,13 @@ namespace TechBytes.Controllers
 {
     public class PostsController : Controller
     {
-        private readonly TechBytesDBContext context;
         private readonly PostsService postsService;
         private readonly BlogsService blogsService;
 
-        public PostsController(PostsService postsService, BlogsService blogsService, TechBytesDBContext context)
+        public PostsController(PostsService postsService, BlogsService blogsService)
         {
             this.postsService = postsService;
             this.blogsService = blogsService;
-            this.context = context;
         }
 
         // GET: Posts
