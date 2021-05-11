@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TechBytes.ApplicationLogic.Services;
 using TechBytes.Models;
 
 namespace TechBytes.Controllers
@@ -12,15 +13,18 @@ namespace TechBytes.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly PostsService postsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, PostsService postsService)
         {
             _logger = logger;
+            this.postsService = postsService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var posts = postsService.GetAll().ToList();
+            return View(posts);
         }
 
         public IActionResult Privacy()
