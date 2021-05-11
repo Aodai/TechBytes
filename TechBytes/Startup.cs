@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,12 +28,13 @@ namespace TechBytes
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<TechBytesDBContext>();
+
             services.AddDbContext<TechBytesDBContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<UsersService>();
             services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddScoped<BlogsService>();
             services.AddScoped<IPostRepository, PostRepository>();
