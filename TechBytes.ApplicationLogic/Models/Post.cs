@@ -8,8 +8,7 @@ namespace TechBytes.ApplicationLogic.Models
     {
         public Guid ID { get; set; }
         public Guid BlogID { get; set; }
-        public Blog Blog { get; set; }
-        public IdentityUser Author { get; set; }
+        public string AuthorID { get; set; }
         public DateTime Published { get; set; }
         public DateTime Modified { get; set; }
         public string Title { get; set; }

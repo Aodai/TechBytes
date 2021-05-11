@@ -16,8 +16,7 @@ namespace TechBytes.DataAccess
 
         public override IEnumerable<Post> GetAll()
         {
-            var posts = dbContext.Posts
-                .Include(p => p.Blog);
+            var posts = dbContext.Posts;
             return posts;
         }
 
@@ -25,7 +24,6 @@ namespace TechBytes.DataAccess
         {
             return dbContext.Posts
                 .Where(post => post.ID == id)
-                .Include(p => p.Blog)
                 .SingleOrDefault();
         }
     }
