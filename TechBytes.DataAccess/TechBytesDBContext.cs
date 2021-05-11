@@ -23,16 +23,25 @@ namespace TechBytes.DataAccess
             base.OnModelCreating(builder);
 
             Guid userGuid = Guid.NewGuid();
-            builder.Entity<IdentityUser>().HasData(
-                new IdentityUser
-                {
-                    Id = userGuid.ToString(),
-                    Email = "aodai100@gmail.com",
-                    EmailConfirmed = true,
-                    UserName = "aodai100@gmail.com",
-                    PasswordHash = "AQAAAAEAACcQAAAAECXTeY9tKA1lcG1vX5/OaAuHvVHtFpKqP5QFQWblhlDdE7tE0A2VI/sBvMMzoftfqQ=="
-                }
-                );
+            Guid blogGuid = Guid.NewGuid();
+            IdentityUser user = new IdentityUser {
+                Id = userGuid.ToString(),
+                Email = "aodai100@gmail.com",
+                EmailConfirmed = true,
+                UserName = "aodai100@gmail.com",
+                PasswordHash = "AQAAAAEAACcQAAAAECXTeY9tKA1lcG1vX5/OaAuHvVHtFpKqP5QFQWblhlDdE7tE0A2VI/sBvMMzoftfqQ=="
+            };
+            Blog blog = new Blog { ID = blogGuid, Url = "/TechBytes" };
+            ICollection<Post> posts = new List<Post>
+            {
+                new Post { ID = Guid.NewGuid(), AuthorID = user.Id, BlogID = blogGuid, Title = "Post1", Content = "Bla bla", Published = DateTime.UtcNow },
+                new Post { ID = Guid.NewGuid(), AuthorID = user.Id, BlogID = blogGuid, Title = "Post2", Content = "Bla bla", Published = DateTime.UtcNow },
+                new Post { ID = Guid.NewGuid(), AuthorID = user.Id, BlogID = blogGuid, Title = "Post3", Content = "Bla bla", Published = DateTime.UtcNow },
+                new Post { ID = Guid.NewGuid(), AuthorID = user.Id, BlogID = blogGuid, Title = "Post4", Content = "Bla bla", Published = DateTime.UtcNow }
+            };
+
+
+            builder.Entity<IdentityUser>().HasData(user);
 
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole { Id = "1", Name = "User", NormalizedName = "User" },
@@ -43,6 +52,10 @@ namespace TechBytes.DataAccess
                 new IdentityUserRole<string> { RoleId = "1", UserId = userGuid.ToString() },
                 new IdentityUserRole<string> { RoleId = "2", UserId = userGuid.ToString() }
                 );
+
+            builder.Entity<Blog>().HasData(blog);
+
+            builder.Entity<Post>().HasData(posts);
         }
     }
 }
