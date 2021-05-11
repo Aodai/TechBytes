@@ -12,7 +12,7 @@ using TechBytes.DataAccess;
 
 namespace TechBytes.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class PostsController : Controller
     {
         private readonly PostsService postsService;
@@ -37,7 +37,7 @@ namespace TechBytes.Controllers
             {
                 return NotFound();
             }
-            
+
             var post = postsService.GetPostById(id.ToString());
 
             //var post = await _context.Posts
@@ -58,7 +58,7 @@ namespace TechBytes.Controllers
             ViewData["BlogID"] = blogsService.GetAll()
                 .Select(c => new SelectListItem() { Text = c.Url, Value = c.ID.ToString() })
                 .ToList();
-        //    ViewData["BlogID"] = new SelectList(_context.Blogs, "ID", "ID");
+            //    ViewData["BlogID"] = new SelectList(_context.Blogs, "ID", "ID");
             return View();
         }
 

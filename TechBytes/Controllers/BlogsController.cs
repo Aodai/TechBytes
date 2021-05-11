@@ -12,7 +12,7 @@ using TechBytes.DataAccess;
 
 namespace TechBytes.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class BlogsController : Controller
     {
         private readonly BlogsService blogsService;

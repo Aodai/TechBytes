@@ -11,7 +11,7 @@ using TechBytes.DataAccess;
 
 namespace TechBytes.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class CategoriesController : Controller
     {
         private readonly TechBytesDBContext _context;
