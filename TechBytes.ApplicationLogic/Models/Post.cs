@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace TechBytes.ApplicationLogic.Models
@@ -8,7 +9,7 @@ namespace TechBytes.ApplicationLogic.Models
         public Guid ID { get; set; }
         public Guid BlogID { get; set; }
         public Blog Blog { get; set; }
-        public User Author { get; set; }
+        public IdentityUser Author { get; set; }
         public DateTime Published { get; set; }
         public DateTime Modified { get; set; }
         public string Title { get; set; }
