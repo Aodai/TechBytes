@@ -18,8 +18,4 @@
     <ProjectReference Include="..\TechBytes.ApplicationLogic\TechBytes.ApplicationLogic.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
