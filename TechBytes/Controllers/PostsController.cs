@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechBytes.ApplicationLogic.Models;
 using TechBytes.ApplicationLogic.Services;
-using TechBytes.DataAccess;
 
 namespace TechBytes.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator, User")]
     public class PostsController : Controller
     {
         private readonly PostsService postsService;

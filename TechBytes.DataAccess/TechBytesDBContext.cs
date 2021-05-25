@@ -29,7 +29,7 @@ namespace TechBytes.DataAccess
                 Email = "aodai100@gmail.com",
                 EmailConfirmed = true,
                 UserName = "aodai100@gmail.com",
-                PasswordHash = "AQAAAAEAACcQAAAAECXTeY9tKA1lcG1vX5/OaAuHvVHtFpKqP5QFQWblhlDdE7tE0A2VI/sBvMMzoftfqQ=="
+                PasswordHash = "AQAAAAEAACcQAAAAECXTeY9tKA1lcG1vX5/OaAuHvVHtFpKqP5QFQWblhlDdE7tE0A2VI/sBvMMzoftfqQ==" // Test.123 
             };
             Blog blog = new Blog { ID = blogGuid, Url = "/TechBytes" };
             ICollection<Post> posts = new List<Post>
