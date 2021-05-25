@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -23,12 +25,21 @@ namespace TechBytes.Controllers
         }
 
         // GET: Posts
-        public IActionResult Index()
+        [Route("Posts")]
+        [Route("Posts/{searchQuery}")]
+        public IActionResult Index(string searchQuery)
         {
-            return View(postsService.GetAll());
+            var posts = postsService.GetAll();
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                posts = posts.Where(p => p.Content.Contains(searchQuery, StringComparison.OrdinalIgnoreCase));
+            }
+            return View(posts);
         }
 
         // GET: Posts/Details/5
+        [Route("Posts/Details/{id?}")]
+        [Route("Posts/{id?}")]
         public IActionResult Details(Guid? id)
         {
             if (id == null)
@@ -70,6 +81,9 @@ namespace TechBytes.Controllers
             if (ModelState.IsValid)
             {
                 post.ID = Guid.NewGuid();
+                post.BlogID = blogsService.GetAll().First().ID;
+                post.AuthorID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                post.Published = DateTime.UtcNow;
                 postsService.Add(post);
                 return RedirectToAction(nameof(Index));
             }
